@@ -1,3 +1,8 @@
+code_car:
+    resource: "@CodeCarBundle/Controller/"
+    type:     annotation
+    prefix:   /cars
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

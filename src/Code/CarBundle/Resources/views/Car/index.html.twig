@@ -1,0 +1,8 @@
+{% for carrosMarcas in carrosMarcasModelo %}
+<h1>{{ carrosMarcas.marca |e }}</h1>
+<ul>
+    {% for carrosModelos in carrosMarcas.modelos %}
+        <li>{{ carrosModelos |e }}</li>
+    {% endfor %}
+</ul>
+{% endfor %}
