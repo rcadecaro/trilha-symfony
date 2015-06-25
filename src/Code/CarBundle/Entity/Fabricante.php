@@ -9,6 +9,7 @@
 namespace Code\CarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Table()
  * @ORM\Entity
