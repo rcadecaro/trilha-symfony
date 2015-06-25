@@ -9,12 +9,11 @@
 namespace Code\CarBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * @ORM\Table()
  * @ORM\Entity
  */
-class Carro {
+class Fabricante {
     /**
      * @var integer
      * 
@@ -27,38 +26,16 @@ class Carro {
     /**
      * @var string
      * 
-     * @ORM\Column(name="modelo", type="string", length=255 )
+     * @ORM\Column(name="nome", type="string", length=255 )
      */    
-    private $modelo;
-    
-    /**
-     * @var integer
-     * 
-     * @ORM\Column(name="ano", type="integer")
-     */    
-    private $ano;
-    
-    /**
-     * @var string
-     * 
-     * @ORM\Column(name="cor", type="string", length=255 )
-     */    
-    private $cor;
+    private $nome;
 
     public function getId() {
         return $this->id;
     }
 
-    public function getModelo() {
-        return $this->modelo;
-    }
-
-    public function getAno() {
-        return $this->ano;
-    }
-
-    public function getCor() {
-        return $this->cor;
+    public function getNome() {
+        return $this->nome;
     }
 
     public function setId($id) {
@@ -66,22 +43,10 @@ class Carro {
         return $this;
     }
 
-    public function setModelo($modelo) {
-        $this->modelo = $modelo;
+    public function setNome($nome) {
+        $this->nome = $nome;
         return $this;
     }
-
-    public function setAno($ano) {
-        $this->ano = $ano;
-        return $this;
-    }
-
-    public function setCor($cor) {
-        $this->cor = $cor;
-        return $this;
-    }
-
-
 
 
     

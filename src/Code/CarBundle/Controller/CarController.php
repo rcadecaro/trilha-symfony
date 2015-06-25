@@ -82,11 +82,11 @@ class CarController extends Controller
             ];
             $em= $this->getDoctrine()->getManager();
             
-//            //Trunca os dados das tabelas
-//            $connection = $em->getConnection();
-//            $platform   = $connection->getDatabasePlatform();
-//            $connection->executeUpdate($platform->getTruncateTableSQL('Fabricante', true /* whether to cascade */));
-//            $connection->executeUpdate($platform->getTruncateTableSQL('Carro', true /* whether to cascade */));
+            //Trunca os dados das tabelas
+            $connection = $em->getConnection();
+            $platform   = $connection->getDatabasePlatform();
+            $connection->executeUpdate($platform->getTruncateTableSQL('Fabricante', true /* whether to cascade */));
+            $connection->executeUpdate($platform->getTruncateTableSQL('Carro', true /* whether to cascade */));
 
             foreach ($dados['carrosMarcasModelo'] as $carrosMarcasModelo) {
                 $fabricante = new Fabricante();
@@ -97,6 +97,8 @@ class CarController extends Controller
                 foreach ($carrosMarcasModelo['modelos'] as $modelo) {
                     $carro = new Carro();
                     $carro->setModelo($modelo);
+                    $carro->setAno(2015);
+                    $carro->setCor('Branco');
                     
                     $em->persist($carro);
                     $em->flush();                    
