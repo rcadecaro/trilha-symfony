@@ -22,12 +22,13 @@ class Fabricante {
      * @ORM\GeneratedValue(strategy="AUTO")
      */    
     private $id;
-     
+
+
     /**
      * @var string
      * 
      * @ORM\Column(name="nome", type="string", length=255 )
-     */    
+     */
     private $nome;
 
     public function getId() {
@@ -48,7 +49,14 @@ class Fabricante {
         return $this;
     }
 
+    public function getModelos() {
+        return $this->modelos;
+    }
 
+    public function setModelos($modelos) {
+        $this->modelos = $modelos;
+        return $this;
+    }
     
     
 }

@@ -85,27 +85,41 @@ class CarController extends Controller
             //Trunca os dados das tabelas
             $connection = $em->getConnection();
             $platform   = $connection->getDatabasePlatform();
-            $connection->executeUpdate($platform->getTruncateTableSQL('Fabricante', true /* whether to cascade */));
+            //devido ao vinculo de carro e fabricante devemos desativar a verificação de foreign_key para truncar as tabelas carro e fabricante            
+            $connection->query('SET FOREIGN_KEY_CHECKS=0');
             $connection->executeUpdate($platform->getTruncateTableSQL('Carro', true /* whether to cascade */));
-
+            $connection->executeUpdate($platform->getTruncateTableSQL('Fabricante', true /* whether to cascade */));
+            $connection->query('SET FOREIGN_KEY_CHECKS=1');            
+            
             foreach ($dados['carrosMarcasModelo'] as $carrosMarcasModelo) {
                 $fabricante = new Fabricante();
                 $fabricante->setNome($carrosMarcasModelo['marca']);
                 
-                $em->persist($fabricante);
-                $em->flush();
                 foreach ($carrosMarcasModelo['modelos'] as $modelo) {
                     $carro = new Carro();
                     $carro->setModelo($modelo);
+                    //o relacionamento é feito ao setar o fabricante
+                    $carro->setFabricante($fabricante);
+                    
                     $carro->setAno(2015);
                     $carro->setCor('Branco');
-                    
+                    $em->persist($fabricante);
                     $em->persist($carro);
                     $em->flush();                    
                 }
             }
+            
+            //Acesso aos dados
+            $repoFabrica = $em->getRepository("Code\CarBundle\Entity\Fabricante");
+            $repoCarro = $em->getRepository("Code\CarBundle\Entity\Carro");
+            $fabricantes = $repoFabrica->findAll();
+            $carros = $repoCarro->findAll();
+            
+            $dadosRetorno = [];
+            $dadosRetorno['carros'] = $carros;
+            $dadosRetorno['fabricantes'] = $fabricantes;
         
-        return $dados;
+        return $dadosRetorno;
 
         
     }

@@ -23,7 +23,13 @@ class Carro {
      * @ORM\GeneratedValue(strategy="AUTO")
      */    
     private $id;
-     
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Fabricante")
+     * @ORM\JoinColumn(name="fabricante_id", referencedColumnName="id" )
+     */        
+    private $fabricante;
+    
     /**
      * @var string
      * 
@@ -78,6 +84,15 @@ class Carro {
 
     public function setCor($cor) {
         $this->cor = $cor;
+        return $this;
+    }
+
+    public function getFabricante() {
+        return $this->fabricante;
+    }
+
+    public function setFabricante($fabricante) {
+        $this->fabricante = $fabricante;
         return $this;
     }
 
