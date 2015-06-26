@@ -25,7 +25,7 @@ class Carro {
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Fabricante")
+     * @ORM\ManyToOne(targetEntity="Fabricante", inversedBy="carros")
      * @ORM\JoinColumn(name="fabricante_id", referencedColumnName="id" )
      */        
     private $fabricante;

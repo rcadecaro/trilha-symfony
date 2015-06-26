@@ -52,73 +52,74 @@ class CarController extends Controller
     public function populateAction()
     {
         
-        $dados = [
-            'carrosMarcasModelo' =>[
-                ['marca'=>'Volkswagen',
-                'modelos'=>[
-                    'Gol',
-                    'Fox',
-                    'Golf',
-                    'Saveiro',
-                    'Voyage',
-                    'Jetta']],
-                ['marca'=>'Ford',
-                'modelos'=>[
-                    'Ecosport',
-                    'Ranger',
-                    'Fiesta',
-                    'Ka',
-                    'Fusion',
-                    'Focus']],
-                ['marca'=>'BMW',
-                    'modelos'=>[
-                        'Série 3',
-                        'X1',
-                        'X5',
-                        'Serie1',
-                        'Z4 Roadster',
-                        'X3']]
-                ]
-            ];
+//        $dados = [
+//            'carrosMarcasModelo' =>[
+//                ['marca'=>'Volkswagen',
+//                'modelos'=>[
+//                    'Gol',
+//                    'Fox',
+//                    'Golf',
+//                    'Saveiro',
+//                    'Voyage',
+//                    'Jetta']],
+//                ['marca'=>'Ford',
+//                'modelos'=>[
+//                    'Ecosport',
+//                    'Ranger',
+//                    'Fiesta',
+//                    'Ka',
+//                    'Fusion',
+//                    'Focus']],
+//                ['marca'=>'BMW',
+//                    'modelos'=>[
+//                        'Série 3',
+//                        'X1',
+//                        'X5',
+//                        'Serie1',
+//                        'Z4 Roadster',
+//                        'X3']]
+//                ]
+//            ];
             $em= $this->getDoctrine()->getManager();
-            
-            //Trunca os dados das tabelas
-            $connection = $em->getConnection();
-            $platform   = $connection->getDatabasePlatform();
-            //devido ao vinculo de carro e fabricante devemos desativar a verificação de foreign_key para truncar as tabelas carro e fabricante            
-            $connection->query('SET FOREIGN_KEY_CHECKS=0');
-            $connection->executeUpdate($platform->getTruncateTableSQL('Carro', true /* whether to cascade */));
-            $connection->executeUpdate($platform->getTruncateTableSQL('Fabricante', true /* whether to cascade */));
-            $connection->query('SET FOREIGN_KEY_CHECKS=1');            
-            
-            foreach ($dados['carrosMarcasModelo'] as $carrosMarcasModelo) {
-                $fabricante = new Fabricante();
-                $fabricante->setNome($carrosMarcasModelo['marca']);
-                
-                foreach ($carrosMarcasModelo['modelos'] as $modelo) {
-                    $carro = new Carro();
-                    $carro->setModelo($modelo);
-                    //o relacionamento é feito ao setar o fabricante
-                    $carro->setFabricante($fabricante);
-                    
-                    $carro->setAno(2015);
-                    $carro->setCor('Branco');
-                    $em->persist($fabricante);
-                    $em->persist($carro);
-                    $em->flush();                    
-                }
-            }
+//            
+//            //Trunca os dados das tabelas
+//            $connection = $em->getConnection();
+//            $platform   = $connection->getDatabasePlatform();
+//            //devido ao vinculo de carro e fabricante devemos desativar a verificação de foreign_key para truncar as tabelas carro e fabricante            
+//            $connection->query('SET FOREIGN_KEY_CHECKS=0');
+//            $connection->executeUpdate($platform->getTruncateTableSQL('Carro', true /* whether to cascade */));
+//            $connection->executeUpdate($platform->getTruncateTableSQL('Fabricante', true /* whether to cascade */));
+//            $connection->query('SET FOREIGN_KEY_CHECKS=1');            
+//            
+//            foreach ($dados['carrosMarcasModelo'] as $carrosMarcasModelo) {
+//                $fabricante = new Fabricante();
+//                $fabricante->setNome($carrosMarcasModelo['marca']);
+//                
+//                foreach ($carrosMarcasModelo['modelos'] as $modelo) {
+//                    $carro = new Carro();
+//                    $carro->setModelo($modelo);
+//                    //o relacionamento é feito ao setar o fabricante
+//                    $carro->setFabricante($fabricante);
+//                    
+//                    $carro->setAno(2015);
+//                    $carro->setCor('Branco');
+//                    $em->persist($fabricante);
+//                    $em->persist($carro);
+//                    $em->flush();                    
+//                }
+//            }
             
             //Acesso aos dados
             $repoFabrica = $em->getRepository("Code\CarBundle\Entity\Fabricante");
-            $repoCarro = $em->getRepository("Code\CarBundle\Entity\Carro");
+            //$repoCarro = $em->getRepository("Code\CarBundle\Entity\Carro");
             $fabricantes = $repoFabrica->findAll();
-            $carros = $repoCarro->findAll();
+            //$fabricantes = $repoFabrica->find(1);
+            //$carros = $repoCarro->findAll();
             
             $dadosRetorno = [];
-            $dadosRetorno['carros'] = $carros;
+            //$dadosRetorno['carros'] = $carros;
             $dadosRetorno['fabricantes'] = $fabricantes;
-        
+            //var_dump($dadosRetorno);die();
         return $dadosRetorno;
 
         

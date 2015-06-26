@@ -7,13 +7,19 @@
  */
 
 namespace Code\CarBundle\Entity;
-
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Table()
  * @ORM\Entity
  */
 class Fabricante {
+    
+    public function __construct() {
+        $this->carros = new ArrayCollection();
+    }
+
+    
     /**
      * @var integer
      * 
@@ -23,7 +29,15 @@ class Fabricante {
      */    
     private $id;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Carro", mappedBy="fabricante")
+     */    
+    private $carros;
+    
+    public function getCarros() {
+        return $this->carros->toArray();
+    }
+        
     /**
      * @var string
      * 
