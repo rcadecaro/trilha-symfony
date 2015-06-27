@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+{% block title %}Este é o index fabricante{% endblock %}
+{% block body %}
+    <div class="container">
+        
+        <div class="masthead">
+            <h1>Fabricantes</h1>
+            <p>
+                <a href="{{path('fabricante_new')}}" class="btn btn-default">Novo Fabricante</a>
+            </p>
+        </div>
+        <div class="row">
+            <table class="table">
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Carros</th>
+                    <th>Ação</th>
+                </tr>
+
+                {% for fabricante in fabricantes %}
+                <tr>
+                    <td>{{ fabricante.id |e }}</td>
+                    <td>{{ fabricante.nome |e }}</td>
+                    <td>
+                        <ul>
+                        {% for carro in fabricante.carros %}
+                            <li>{{ carro.modelo |e }} | {{ carro.ano |e }} | {{ carro.cor |e }}</li>
+                        {% endfor %} 
+                        </ul>                    
+                    </td>
+                    <td></td>
+                </tr>
+                {% endfor %} 
+            </table>
+        </div>
+    </div>
+    
+       
+{% endblock %}

@@ -18,7 +18,6 @@ class Fabricante {
     public function __construct() {
         $this->carros = new ArrayCollection();
     }
-
     
     /**
      * @var integer
@@ -34,10 +33,6 @@ class Fabricante {
      */    
     private $carros;
     
-    public function getCarros() {
-        return $this->carros->toArray();
-    }
-        
     /**
      * @var string
      * 
@@ -62,15 +57,10 @@ class Fabricante {
         $this->nome = $nome;
         return $this;
     }
-
-    public function getModelos() {
-        return $this->modelos;
+    public function getCarros() {
+        return $this->carros->toArray();
     }
 
-    public function setModelos($modelos) {
-        $this->modelos = $modelos;
-        return $this;
-    }
     
     
 }

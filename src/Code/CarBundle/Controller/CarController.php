@@ -7,11 +7,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Code\CarBundle\Entity\Fabricante;
 use Code\CarBundle\Entity\Carro;
-
+/**
+ * @Route("/car")
+ */
 class CarController extends Controller
 {
     /**
-     * @Route("/car")
+     * @Route("/", name="car_index")
      * @Template()
      */
     public function indexAction()
@@ -46,7 +48,7 @@ class CarController extends Controller
             ];
     }
     /**
-     * @Route("/car/populate")
+     * @Route("/car/populate", name="car_populate")
      * @Template()
      */
     public function populateAction()
