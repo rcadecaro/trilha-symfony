@@ -29,7 +29,11 @@
                         {% endfor %} 
                         </ul>                    
                     </td>
-                    <td></td>
+                    <td>
+                        <a href="{{path('fabricante_edit', {'id':fabricante.id})}}"> Editar</a>
+                        |
+                        <a href="{{path('fabricante_delete', {'id':fabricante.id})}}"> Excluir</a>
+                    </td>
                 </tr>
                 {% endfor %} 
             </table>

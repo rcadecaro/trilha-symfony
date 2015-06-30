@@ -58,9 +58,15 @@ class Fabricante {
         return $this;
     }
     public function getCarros() {
-        return $this->carros->toArray();
+        return $this->carros;
     }
-
+    public function __toString() {
+        return $this->getNome();
+    }
+//    public function setCarros($carros) {
+//        $this->carros = $carros;
+//        return $this;
+//    }
     
     
 }

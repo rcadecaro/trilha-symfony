@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+{% block body %}
+    {% for fabricante in fabricantes %}
+        <h1>{{ fabricante.nome |e }}</h1>
+        
+        <ul>
+        {% for carro in fabricante.carros %}
+            <li>{{ carro.modelo |e }} | {{ carro.ano |e }} | {{ carro.cor |e }}</li>
+        {% endfor %} 
+        </ul>
+    {% endfor %} 
+    
+   
+{% endblock %}

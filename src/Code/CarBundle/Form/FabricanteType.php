@@ -9,7 +9,8 @@ class FabricanteType  extends AbstractType{
    
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add("nome")
+                ->add('nome')
+               // ->add('carros')
         ;
     }
     
