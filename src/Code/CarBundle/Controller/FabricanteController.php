@@ -52,7 +52,7 @@ class FabricanteController extends Controller
             
             $fabricanteService = $this->get("code_car.service.fabricante");
             
-            $entity = $fabricanteService->insert($entity);
+            $entity = $fabricanteService->save($entity);
             
             return $this->redirect($this->generateUrl('fabricante_index'));
         }
@@ -94,8 +94,9 @@ class FabricanteController extends Controller
         $form = $this->createForm(new FabricanteType(), $entity);
         $form->bind($request);
         if($form->isValid()){
-            $em->persist($entity);
-            $em->flush();
+            $fabricanteService = $this->get("code_car.service.fabricante");
+            $entity = $fabricanteService->save($entity);
+
             return $this->redirect($this->generateUrl('fabricante_index'));
         }        
         return array(
@@ -114,8 +115,10 @@ class FabricanteController extends Controller
         if(!$entity){
             throw $this->createNotFoundException("Registro Não Encontrado!");
         }
-        $em->remove($entity);
-        $em->flush();
+        $fabricanteService = $this->get("code_car.service.fabricante");
+
+        $entity = $fabricanteService->remove($entity);
+
         return $this->redirect($this->generateUrl('fabricante_index'));
     }
     

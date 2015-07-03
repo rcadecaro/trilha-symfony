@@ -84,10 +84,9 @@ class CarController extends Controller
             ];
             $em= $this->getDoctrine()->getManager();
             
-            //Trunca os dados das tabelas
             $connection = $em->getConnection();
             $platform   = $connection->getDatabasePlatform();
-            //devido ao vinculo de carro e fabricante devemos desativar a verificação de foreign_key para truncar as tabelas carro e fabricante            
+
             $connection->query('SET FOREIGN_KEY_CHECKS=0');
             $connection->executeUpdate($platform->getTruncateTableSQL('Carro', true));
             $connection->executeUpdate($platform->getTruncateTableSQL('Fabricante', true));
@@ -100,7 +99,6 @@ class CarController extends Controller
                 foreach ($carrosMarcasModelo['modelos'] as $modelo) {
                     $carro = new Carro();
                     $carro->setModelo($modelo);
-                    //o relacionamento é feito ao setar o fabricante
                     $carro->setFabricante($fabricante);
                     
                     $carro->setAno(2015);
@@ -124,7 +122,6 @@ class CarController extends Controller
 
         $em= $this->getDoctrine()->getManager();
             
-        //Acesso aos dados
         $repoFabrica = $em->getRepository("Code\CarBundle\Entity\Fabricante");
         $fabricantes = $repoFabrica->findAll();
         $dadosRetorno = [];
