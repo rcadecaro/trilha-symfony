@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class Fabricante {
+class Fabricante implements FabricanteInterface{
     
     public function __construct() {
         $this->carros = new ArrayCollection();

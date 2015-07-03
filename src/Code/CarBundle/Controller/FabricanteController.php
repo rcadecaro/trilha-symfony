@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Code\CarBundle\Entity\Fabricante;
+use Code\CarBundle\Service\FabricanteService;
 use Code\CarBundle\Form\FabricanteType;
 use Symfony\Component\HttpFoundation\Request;
 /**
@@ -47,9 +48,12 @@ class FabricanteController extends Controller
         $form = $this->createForm(new FabricanteType(), $entity);
         $form->bind($request);
         if($form->isValid()){
-            $em=$this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
+            
+            
+            $fabricanteService = $this->get("code_car.service.fabricante");
+            
+            $entity = $fabricanteService->insert($entity);
+            
             return $this->redirect($this->generateUrl('fabricante_index'));
         }
         return array(
