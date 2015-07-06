@@ -20,9 +20,9 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: ROLE_USER }
         - { path: ^/cars/carro/, role: ROLE_USER }
-        - { path: ^/cars/fabricante/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/cars/fabricante/, role: ROLE_USER }
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
