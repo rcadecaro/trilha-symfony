@@ -3,11 +3,15 @@
 {% block body %}
     <div class="container">
         
-        <div class="masthead">
+
+        <div class="row">
             <h1>Fabricantes</h1>
+            {%if is_granted('ROLE_ADMIN')%}
             <p>
                 <a href="{{path('fabricante_new')}}" class="btn btn-default">Novo Fabricante</a>
             </p>
+            {%endif%}
+
         </div>
         <div class="row">
             <table class="table">
@@ -15,7 +19,9 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Carros</th>
+                    {%if is_granted('ROLE_ADMIN')%}
                     <th>Ação</th>
+                    {%endif%}
                 </tr>
 
                 {% for fabricante in fabricantes %}
@@ -29,11 +35,13 @@
                         {% endfor %} 
                         </ul>                    
                     </td>
+                    {%if is_granted('ROLE_ADMIN')%}
                     <td>
                         <a href="{{path('fabricante_edit', {'id':fabricante.id})}}"> Editar</a>
                         |
                         <a href="{{path('fabricante_delete', {'id':fabricante.id})}}"> Excluir</a>
                     </td>
+                    {%endif%}
                 </tr>
                 {% endfor %} 
             </table>

@@ -3,17 +3,25 @@
 namespace Code\CarBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Code\CarBundle\Entity\Fabricante;
 use Code\CarBundle\Service\FabricanteService;
 use Code\CarBundle\Form\FabricanteType;
-use Symfony\Component\HttpFoundation\Request;
+
 /**
  * @Route("/fabricante")
  */
 class FabricanteController extends Controller
 {
+    private function checkAuth(){
+        $securityContext = $this->get('security.context');
+        if(!$securityContext->isGranted('ROLE_ADMIN')){
+            throw new AccessDeniedException('Somente admins podem acessar.');
+        }        
+    }
     /**
      * @Route("/", name="fabricante_index")
      * @Template()
@@ -31,6 +39,7 @@ class FabricanteController extends Controller
      */
     public function newAction()
     {   
+        $this->checkAuth();
         $entity = new Fabricante(); 
         $form = $this->createForm(new FabricanteType(), $entity); 
         return [
@@ -44,6 +53,7 @@ class FabricanteController extends Controller
      */
     public function createAction(Request $request)
     {   
+        $this->checkAuth();
         $entity = new Fabricante();
         $form = $this->createForm(new FabricanteType(), $entity);
         $form->bind($request);
@@ -67,6 +77,7 @@ class FabricanteController extends Controller
      */
     public function editAction($id)
     {   
+        $this->checkAuth();
         $em=$this->getDoctrine()->getManager();
         $entity = $em->getRepository("Code\CarBundle\Entity\Fabricante")->find($id);
         if(!$entity){
@@ -86,6 +97,7 @@ class FabricanteController extends Controller
      */
     public function updateAction(Request $request, $id)
     {   
+        $this->checkAuth();
         $em=$this->getDoctrine()->getManager();
         $entity = $em->getRepository("Code\CarBundle\Entity\Fabricante")->find($id);
         if(!$entity){
@@ -110,6 +122,7 @@ class FabricanteController extends Controller
      */
     public function deleteAction( $id)
     {   
+        $this->checkAuth();
         $em=$this->getDoctrine()->getManager();
         $entity = $em->getRepository("Code\CarBundle\Entity\Fabricante")->find($id);
         if(!$entity){

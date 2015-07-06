@@ -13,6 +13,13 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <div class="row">
+            {%if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+            <p>
+                <a href="{{path('fos_user_security_logout')}}" class="btn btn-default">Logout</a>
+            </p>
+            {%endif%}
+        </div>        
         {% block body %}{% endblock %}
         {% block javascripts %}
         
